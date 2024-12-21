@@ -31,7 +31,7 @@ struct HomeView: View {
                         Text(formattedDate)
                     }.contextMenu(ContextMenu(menuItems: {
                         Button(action: {
-                            
+                            noteViewModel.sendData(item: item)
                         }) {
                             Label("Editar", systemImage: "pencil")
                         }
@@ -45,7 +45,7 @@ struct HomeView: View {
             }.navigationTitle("Mis Notas")
                 .navigationBarItems(trailing: HStack {
                     Button(action: {
-                        noteViewModel.showAddNote.toggle()
+                        noteViewModel.newNote()
                     }) {
                         Image(systemName: "plus")
                     }.sheet(isPresented: $noteViewModel.showAddNote) {

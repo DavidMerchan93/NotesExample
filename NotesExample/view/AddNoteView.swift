@@ -14,7 +14,7 @@ struct AddNoteView: View {
     
     var body: some View {
         VStack {
-            Text("Agregar una nota")
+            Text(noteModel.updateNote != nil ? "Editar nota" : "Agregar una nota")
                 .font(.largeTitle)
                 .bold()
             Spacer()
@@ -24,16 +24,21 @@ struct AddNoteView: View {
             Spacer()
             Divider()
             Button(action: {
-                noteModel.saveNote(context: context)
+                if noteModel.updateNote != nil {
+                    noteModel.updateNote(context: context)
+                } else {
+                    noteModel.saveNote(context: context)
+                }
             }) {
                 Label(
-                    title: { Text("Guardar") },
+                    title: { Text(noteModel.updateNote != nil ? "Actualizar" : "Guardar") },
                     icon: { Image(systemName: "plus") }
                 ).foregroundStyle(.white)
             }.padding(20)
                 .frame(width: UIScreen.main.bounds.width - 30)
-                .background(.blue)
+                .background(noteModel.note.isEmpty ? .gray : .blue)
                 .cornerRadius(8)
+                .disabled(noteModel.note.isEmpty)
             
         }.padding(20)
     }
