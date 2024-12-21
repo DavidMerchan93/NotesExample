@@ -30,4 +30,13 @@ class NotesViewModel: ObservableObject {
             print("Ocurrio un error al guardar la nota: \(error.localizedDescription)")
         }
     }
+    
+    func deleteNote(context: NSManagedObjectContext, note: NoteEntity) {
+        do {
+            try context.delete(note)
+            print("Nota Eliminada")
+        } catch let error as NSError {
+            print("Ocurrio un error al eliminar la nota: \(error.localizedDescription)")
+        }
+    }
 }

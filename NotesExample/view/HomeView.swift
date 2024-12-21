@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @Environment(\.managedObjectContext) var context
     @StateObject var noteViewModel = NotesViewModel()
     @FetchRequest(entity: NoteEntity.entity(), sortDescriptors: [NSSortDescriptor(key: "date", ascending: true)], animation: .spring()) var myNotes : FetchedResults<NoteEntity>
     
@@ -28,8 +29,18 @@ struct HomeView: View {
                             .font(.headline)
                             .bold()
                         Text(formattedDate)
-                        
-                    }
+                    }.contextMenu(ContextMenu(menuItems: {
+                        Button(action: {
+                            
+                        }) {
+                            Label("Editar", systemImage: "pencil")
+                        }
+                        Button(action: {
+                            noteViewModel.deleteNote(context: context, note: item)
+                        }) {
+                            Label("Eliminar", systemImage: "trash")
+                        }
+                    }))
                 }
             }.navigationTitle("Mis Notas")
                 .navigationBarItems(trailing: HStack {
