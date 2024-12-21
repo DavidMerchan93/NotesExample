@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddNoteView: View {
     
+    @Environment(\.managedObjectContext) var context
     @ObservedObject var noteModel: NotesViewModel
     
     var body: some View {
@@ -23,7 +24,7 @@ struct AddNoteView: View {
             Spacer()
             Divider()
             Button(action: {
-                
+                noteModel.saveNote(context: context)
             }) {
                 Label(
                     title: { Text("Guardar") },

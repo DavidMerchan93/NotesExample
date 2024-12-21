@@ -24,6 +24,8 @@ class NotesViewModel: ObservableObject {
         
         do {
             try context.save()
+            print("Nota Almacenada")
+            showAddNote.toggle()
         } catch let error as NSError {
             print("Ocurrio un error al guardar la nota: \(error.localizedDescription)")
         }
